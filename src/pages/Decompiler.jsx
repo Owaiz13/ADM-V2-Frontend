@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import FileUploadBar from '../components/FileUploadBar';
 import CheckboxWithContent from '../components/CheckboxWithContent';
+import '../App.css';  // Make sure this is the correct path to your App.css
 
 const BACKEND_URL = "http://localhost:9000/decompile_so";
 

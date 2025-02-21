@@ -5,7 +5,7 @@ const JsonTreeView = ({ data, onItemSelect }) => {
 
   const handleToggle = (node) => {
     if (expandedNodes.includes(node)) {
-      setExpandedNodes(expandedNodes.filter(item => item !== node));
+      setExpandedNodes(expandedNodes.filter((item) => item !== node));
     } else {
       setExpandedNodes([...expandedNodes, node]);
     }
@@ -14,20 +14,18 @@ const JsonTreeView = ({ data, onItemSelect }) => {
   const renderTree = (data, parentKey = '') => {
     return Object.keys(data).map((key) => {
       const nodePath = `${parentKey}/${key}`;
-      const nodeData = data[key];
-      const isLeaf = nodeData && typeof nodeData === 'object' && nodeData.url;
+      const isLeaf = typeof data[key] === 'object' && data[key].url; // Check if it's a leaf with a URL
       const isExpanded = expandedNodes.includes(nodePath);
 
       return (
         <li key={nodePath}>
-          <span onClick={() => isLeaf ? onItemSelect(nodeData.url) : handleToggle(nodePath)}>
+          <span
+            style={{ cursor: 'pointer', color: isLeaf ? 'blue' : 'black' }}
+            onClick={() => (isLeaf ? onItemSelect(data[key].url) : handleToggle(nodePath))}
+          >
             {isLeaf ? key : (isExpanded ? '-' : '+') + ' ' + key}
           </span>
-          {!isLeaf && isExpanded && (
-            <ul>
-              {renderTree(nodeData, nodePath)}
-            </ul>
-          )}
+          {!isLeaf && isExpanded && <ul>{renderTree(data[key], nodePath)}</ul>}
         </li>
       );
     });
@@ -35,9 +33,7 @@ const JsonTreeView = ({ data, onItemSelect }) => {
 
   return (
     <div className="json-tree-view">
-      <ul>
-        {renderTree(data)}
-      </ul>
+      <ul>{renderTree(data)}</ul>
     </div>
   );
 };

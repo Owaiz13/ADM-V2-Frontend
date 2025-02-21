@@ -1,52 +1,21 @@
-/* src/Decopiler.css */
-.file-upload-container {
-  max-width: 800px; /* Adjust the width as needed */
-  margin: 0 auto; /* Center the component horizontally */
-  padding: 20px; /* Add padding for better spacing */
-}
-
-.input-group {
-  margin-bottom: 20px; /* Space between input group and checkboxes */
-}
-
-.checkbox-container {
+.decompiler-container {
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px; /* Space between checkboxes and code boxes */
+  height: 100vh;
+  overflow: hidden;
 }
 
-.form-check {
-  margin-right: 150px; /* Spacing between checkboxes */
+.sidebar {
+  width: 250px; /* Fixed sidebar width */
+  background-color: #f8f9fa; /* Light background */
+  padding: 20px;
+  height: 100%; /* Full height */
+  overflow-y: auto; /* Scrollable content */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Shadow for sidebar */
 }
 
-.code-box {
-  border: 1px solid #ddd; /* Border around code boxes */
-  padding: 10px; /* Padding inside code boxes */
-  background-color: #f7f7f7; /* Background color of code boxes */
-  margin-bottom: 20px; /* Space between code boxes */
-  height: 400px; /* Set a fixed height for code boxes */
-  overflow-y: auto; /* Add vertical scroll if content exceeds height */
-}
-
-.code-box h3 {
-  margin-top: 0; /* Remove top margin from headings */
-}
-
-textarea {
-  resize: none; /* Prevent resizing of the textarea */
-  width: 100%; /* Ensure textarea takes full width */
-  height: 100%; /* Ensure textarea takes full height */
-  border: none; /* Remove border from textarea */
-  background: transparent; /* Make textarea background transparent */
-  color: inherit; /* Inherit text color */
-  font-family: inherit; /* Inherit font family */
-}
-
-.syntax-highlighter {
-  height: 100%; /* Ensure syntax highlighter takes full height */
-  width: 100%; /* Ensure syntax highlighter takes full width */
-  overflow: auto; /* Add scroll if content exceeds */
-  background: #f7f7f7; /* Ensure background color matches code box */
-  border-radius: 4px; /* Slight border radius for aesthetics */
-  padding: 10px; /* Padding inside syntax highlighter for better spacing */
+.content-area {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #ffffff;
 }

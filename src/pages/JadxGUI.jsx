@@ -1,25 +1,24 @@
-import React, { useState } from 'react';
-import FileUploadBar from '../components/FileUploadBar';
-import JsonTreeView from '../components/JsonTreeView';
-import JsonDetailsView from '../components/JsonDetailsView';
+import React, { useState } from "react";
+import FileUploadBar from "../components/FileUploadBar";
+import JsonTreeView from "../components/JsonTreeView";
+import JsonDetailsView from "../components/JsonDetailsView";
 
 function JadxGUI() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [apkData, setApkData] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // Helper function to build tree structure from file paths
+  // Function to build a tree structure from file paths
   const buildTree = (files) => {
     const tree = {};
 
     files.forEach((file) => {
-      const path = file.path;
-      if (typeof path !== 'string') {
-        console.error('Invalid path:', path);
+      if (!file.path || typeof file.path !== "string") {
+        console.error("Invalid file path:", file);
         return;
       }
 
-      const parts = path.split('/');
+      const parts = file.path.split("/");
       let current = tree;
 
       parts.forEach((part, index) => {
@@ -33,56 +32,75 @@ function JadxGUI() {
     return tree;
   };
 
+  // Handle file selection
   const handleFileChange = (event) => {
     const file = event.target.files[0];
+    if (!file) return;
+
     setSelectedFile(file);
-    console.log('Selected file:', file);
+    console.log("Selected file:", file);
   };
 
-  const handleFileRequest = () => {
-    if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const jsonContent = JSON.parse(e.target.result);
-
-          // Check if 'files' exists and is an array
-          if (jsonContent.files && Array.isArray(jsonContent.files)) {
-            const treeData = buildTree(jsonContent.files);
-            setApkData(treeData);
-            console.log('APK JSON Data:', treeData);
-          } else {
-            console.error('Invalid JSON structure: "files" key is missing or not an array');
-          }
-        } catch (error) {
-          console.error('Error parsing JSON:', error);
-        }
-      };
-      reader.readAsText(selectedFile);
-    } else {
-      console.log('No file selected.');
-    }
-  };
-
+  // Trigger hidden file input
   const handleFileUpload = () => {
-    document.getElementById('fileInput').click();
+    document.getElementById("fileInput").click();
   };
 
-  // Debugging function call
+  // Read and process the uploaded file
+  const handleFileRequest = () => {
+    if (!selectedFile) {
+      console.warn("No file selected.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const jsonContent = JSON.parse(e.target.result);
+
+        if (!jsonContent.files || !Array.isArray(jsonContent.files)) {
+          console.error('Invalid JSON: Missing "files" array.');
+          return;
+        }
+
+        const treeData = buildTree(jsonContent.files);
+        setApkData(treeData);
+        console.log("Processed APK Data:", treeData);
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
+    };
+    reader.readAsText(selectedFile);
+  };
+
+  // Handle item selection from JSON tree
   const handleItemSelect = (url) => {
-    console.log('Selected URL:', url); // Debugging line
+    console.log("Selected URL:", url);
     setSelectedItem(url);
   };
 
   return (
-    <div className="container">
-      <h1>Jadx GUI</h1>
+    <div className="container mt-4">
+      <h1 className="mb-4">Jadx GUI</h1>
+
+      {/* File Upload Bar */}
       <FileUploadBar
         selectedFile={selectedFile}
         handleFileChange={handleFileChange}
         handleFileUpload={handleFileUpload}
         handleSubmit={handleFileRequest}
       />
+
+      {/* Hidden File Input */}
+      <input
+        id="fileInput"
+        type="file"
+        accept=".apk"
+        style={{ display: "none" }}
+        onChange={handleFileChange}
+      />
+
+      {/* JSON Tree and Details View */}
       {apkData && (
         <div className="row mt-4">
           <div className="col-md-4">
