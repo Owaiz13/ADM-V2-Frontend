@@ -1,0 +1,58 @@
+.tree-container {
+    font-size: 14px;
+    color: #fff;
+    background-color: #1e1e1e;
+    height: 100%;
+    overflow-y: auto;
+    font-family: 'Fira Code', monospace;
+    padding: 0.5rem;
+  }
+  
+  .tree-root,
+  .tree-children {
+    list-style: none;
+    margin: 0;
+    padding-left: 1rem;
+    position: relative;
+  }
+  
+  .tree-children::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0.4rem;
+    bottom: 0;
+    width: 1px;
+    background: #444;
+  }
+  
+  .tree-node {
+    position: relative;
+    padding-left: 1rem;
+  }
+  
+  .tree-node::before {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    left: 0.4rem;
+    width: 1rem;
+    height: 1px;
+    background: #444;
+  }
+  
+  .tree-label {
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+  }
+  
+  .tree-label:hover {
+    background-color: #333;
+  }
+  
+  .tree-node.selected .tree-label {
+    background-color: #264f78;
+  }
+  

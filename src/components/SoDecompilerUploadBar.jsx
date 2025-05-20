@@ -1,7 +1,7 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function FileUploadBar({ selectedFile, handleFileChange, handleFileUpload, handleSubmit }) {
+function SoDecompilerUploadBar({ selectedFile, handleFileChange, handleFileUpload, handleSubmit }) {
   return (
     <div className="container d-flex justify-content-center my-3 mt-5">
       <div className="col-md-6 col-lg-6"> 
@@ -33,4 +33,4 @@ function FileUploadBar({ selectedFile, handleFileChange, handleFileUpload, handl
   );
 }
 
-export default FileUploadBar;
+export default SoDecompilerUploadBar;

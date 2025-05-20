@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import FileUploadBar from '../components/FileUploadBar';
+import FileUploadBar from '../components/SoDecompilerUploadBar';
 import CheckboxWithContent from '../components/CheckboxWithContent';
 import '../App.css';  // Make sure this is the correct path to your App.css
 
